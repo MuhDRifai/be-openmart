@@ -1,55 +1,60 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
+const express = require("express");
 const router = express.Router();
-const User = require('../models/User');
-const crypto = require('crypto-js');
-dotenv.config();
+const CryptoJs = require("crypto-js");
+const User = require("../models/User");
 
-router.post('/register', async (req, res) => {
-    try {
-        const { username, email, password } = req.body;
+// Register
+router.post("/register", async (req, res) => {
+  try {
+    const encryptedPassword = CryptoJs.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+    ).toString();
 
-        // Enkripsi password menggunakan secret passphrase sebelum menyimpannya dalam database
-        const encryptedPassword = crypto.AES.encrypt(password, process.env.SECRET_KEY).toString();
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      password: encryptedPassword,
+    });
 
-        const newUser = new User({
-            username,
-            email,
-            password: encryptedPassword,
-        });
+    await newUser.save();
 
-        await newUser.save();
-
-        res.status(201).json({ message: 'User registered successfully' });
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred while registering user' });
-    }
+    res.status(201).json({
+      message: "User registered successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: "Registration failed",
+    });
+  }
 });
 
-router.post('/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
+//Login
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({
+      username: req.body.username,
+    });
 
-        const user = await User.findOne({ email });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Dekripsi password yang disimpan dalam database menggunakan secret passphrase
-        const decryptedStoredPassword = crypto.AES.decrypt(user.password, process.env.SECRET_KEY).toString(crypto.enc.Utf8);
-
-        if (decryptedStoredPassword !== password) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        // Buat token otentikasi menggunakan JWT_KEY dari berkas .env
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
-
-        res.status(200).json({ message: 'Login successful', token });
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred while logging in' });
+    if (!user) {
+      return res.status(401).json("Invalid Username");
     }
+
+    const decryptedPassword = CryptoJs.AES.decrypt(
+      user.password,
+      process.env.SECRET_KEY
+    ).toString(CryptoJs.enc.Utf8);
+
+    if (decryptedPassword !== req.body.password) {
+      return res.status(401).json("Invalid Password");
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      error: "Login failed",
+    });
+  }
 });
 
 module.exports = router;
