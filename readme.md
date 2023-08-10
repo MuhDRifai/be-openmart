@@ -11,6 +11,7 @@ The OpenMart E-Commerce API project aims to provide a comprehensive set of APIs 
 - **User Management**: CRUD operations for managing user accounts, profiles, and authentication.
 - **Product Management**: APIs for handling products, including creation, listing, updating, and deletion.
 - **Order Management**: APIs to manage customer orders, including order creation, tracking, and history.
+- **Cart Management**: APIs to handle shopping carts, enabling users to add, modify, and review cart contents.
 
 Whether you're building a mobile app, a web application, or any other software solution that requires interaction with an e-commerce platform, the OpenMart E-Commerce APIs provide the necessary tools to streamline the development process.
 
