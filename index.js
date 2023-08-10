@@ -7,7 +7,6 @@ const authRoute = require('./routes/auth');
 const productRoute = require('./routes/product');
 const orderRoute = require('./routes/order');
 const cartRoute = require ('./routes/cart');
-const stripeRoute = require('./routes/stripe')
 
 dotenv.config();
 
@@ -30,7 +29,6 @@ mongoose.connect(process.env.MONGO_URL, {
     app.use('/api/product', productRoute);
     app.use('/api/cart', cartRoute);
     app.use('/api/orders', orderRoute);
-    app.use('/api/payment',stripeRoute);
 
     // Error Handling Middleware
     app.use((err, req, res, next) => {
