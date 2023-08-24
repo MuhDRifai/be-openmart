@@ -21,5 +21,31 @@ This documentation is organized to help you understand and utilize the OpenMart 
 
 To access the detailed API documentation and examples, please visit the [OpenMart API Documentation](https://documenter.getpostman.com/view/21244668/2s9Xy3qqBK).
 
+## Getting Started
 
+Follow these steps to clone the repository and run the project locally:
 
+1. **Clone the Repo**: Open your terminal and run the following command to clone the repository:
+
+   ```
+   git clone https://github.com/MuhDRifai/be-openmart.git
+   ```
+
+2. **Install Dependencies**: Navigate to the cloned project directory and install all dependencies:
+
+   ```
+   cd be-openmart
+   npm install
+   ```
+
+3. **Configure Environment**: Make sure you have a `.env` file in the project directory with required configurations (API keys, database info, etc.).
+
+4. **Run the Server**: Once dependencies are installed and the environment is configured, start the server with the following command:
+
+   ```
+   npm start
+   ```
+
+   This will run the server using nodemon, which automatically restarts the server on code changes.
+
+Feel free to explore the API endpoints, test functionalities, and integrate them into your applications.
