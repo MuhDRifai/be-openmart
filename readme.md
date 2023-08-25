@@ -40,12 +40,21 @@ Follow these steps to clone the repository and run the project locally:
 
 3. **Configure Environment**: Make sure you have a `.env` file in the project directory with required configurations (API keys, database info, etc.).
 
-4. **Run the Server**: Once dependencies are installed and the environment is configured, start the server with the following command:
+```
+MONGO_URL = mongodb+srv://MuhRifai23:MuhRifai23@rifai-express.n8bi3yk.mongodb.net/Rifai-express?retryWrites=true&w=majority
+PORT = 5000
+SECRET_KEY = MuhRifai23
+JWT_KEY = MuhRifai23
+STRIPE_KEY = sk_test_51LFdpTCS4JfNPEK6rN2DDj5mBXU9w0v2QED3UE73fIVA63bYQ6SV4B2rwvrHGHzRI8mq35bZYZAmzgfWKKvCG3rF008hIJ7RCI
+
+```
+
+4. **Run the Server**: Once all dependencies are installed and the environment is configured, you can start the server with the following command:
 
    ```
    npm start
    ```
 
-   This will run the server using nodemon, which automatically restarts the server on code changes.
+This command will initiate the server using nodemon, which will automatically restart the server on code changes.
 
 Feel free to explore the API endpoints, test functionalities, and integrate them into your applications.
